@@ -1,2 +1,0 @@
-<%@ Page Language="Jscript"%>
-<%Response.Write("<|-Gethub butian test-|>");%>
