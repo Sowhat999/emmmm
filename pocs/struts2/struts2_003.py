@@ -29,7 +29,7 @@ def poc(url, **kwargs):
     try:
         for test in poc_goop:
             # req = requests.post(url, headers=headers, data=test, timeout=timeout, verify=False, proxies=proxies)
-            req = requests.post(url, headers=headers, data=test, timeout=timeout, verify=False, )
+            req = requests.post(url, headers=headers, data=test, timeout=timeout, verify=True)
             result = "目标存在 Struts2-003, check url: %s" % url
             for c in check:
                 if str(c) in req.text:

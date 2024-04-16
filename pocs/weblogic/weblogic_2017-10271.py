@@ -50,7 +50,7 @@ def check(url):
     '''
 
     try:
-        response = requests.post(url, data=post_str, verify=False, timeout=10, headers=heads)
+        response = requests.post(url, data=post_str, verify=True, timeout=10, headers=heads)
         response = response.text
         response = re.search(u"<faultstring>.*</faultstring>", response).group(0)
     except:

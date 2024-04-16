@@ -122,7 +122,7 @@ class Spider():
         '''
         try:
             headers = requests_headers()
-            content = requests.get(url, timeout=5, headers=headers, verify=False).text.encode('utf-8')
+            content = requests.get(url, timeout=5, headers=headers, verify=True).text.encode('utf-8')
             links = []
             tags = ['a', 'A', 'link', 'script', 'area', 'iframe', 'form']  # img
             tos = ['href', 'src', 'action']

