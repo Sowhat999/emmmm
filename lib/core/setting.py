@@ -121,11 +121,11 @@ def url200or404Check(url):
     random_num = ''.join(str(i) for i in random.sample(range(0, 9), 5))
     url_404 = "%s://%s/this_is_404_page_%s" % (parse_result.scheme, parse_result.netloc, random_num)
     try:
-        standard_text = requests.get(url_404).text
+        standard_text = requests.get(url_404, timeout=60).text
     except:
         pass
     try:
-        text = requests.get(url).text
+        text = requests.get(url, timeout=60).text
     except:
         pass
     degree_of_similarity = difflib.SequenceMatcher(None, standard_text, text).quick_ratio()

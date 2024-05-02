@@ -150,7 +150,7 @@ def Error_xss(url):
 
             try:
 
-                html = requests.get(new_url, headers=header, allow_redirects=False, ).text
+                html = requests.get(new_url, headers=header, allow_redirects=False, timeout=60).text
 
                 if payload in html:
                     log = "可能存在XSS %s key:%s payload:%s" % (new_url, k, v + payload)

