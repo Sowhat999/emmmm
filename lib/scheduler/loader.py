@@ -10,12 +10,12 @@ import importlib.util
 import sys
 import os
 import time
-import random
 import queue
 from lib.core.data import conf, paths, cmdLineOptions
 from lib.core.setting import outputscreen
 from lib.api.zoomeye.pack import ZoomEyeSearch
 from lib.api.google.pack import GoogleSearch
+import secrets
 
 
 # 加载pocs中的脚本文件
@@ -125,7 +125,7 @@ def load_proxy_random_ip(scheme):
     for porxy_ip in proxy_lines:
         proxy_list.append(porxy_ip.strip())
     # print(random_proip)
-    Hook.update({"proxies": {'%s' % scheme: random.choice(proxy_list)}})
+    Hook.update({"proxies": {'%s' % scheme: secrets.choice(proxy_list)}})
     conf.HOOK = Hook
     # return conf.HOOK
 
@@ -196,6 +196,6 @@ def loadfakeuseragent():
         for a in ua:
             a = a.strip()
             ua_list.append(a)
-        return random.choice(ua_list)
+        return secrets.choice(ua_list)
     else:
         sys.exit(outputscreen.error('NO found %s' % ua_file))

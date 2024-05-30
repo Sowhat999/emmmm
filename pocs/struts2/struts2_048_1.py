@@ -1,6 +1,6 @@
 import warnings
 import requests
-import random
+import secrets
 
 warnings.filterwarnings("ignore")
 
@@ -13,8 +13,8 @@ def poc(url, **kwargs):
     timeout = 10
     proxies = {'http': '127.0.0.1:9999'}
 
-    ran_a = random.randint(10000000, 20000000)
-    ran_b = random.randint(1000000, 2000000)
+    ran_a = secrets.SystemRandom().randint(10000000, 20000000)
+    ran_b = secrets.SystemRandom().randint(1000000, 2000000)
     ran_check = ran_a - ran_b
     check = [ran_check]
     lin = 'expr' + ' ' + str(ran_a) + ' - ' + str(ran_b)

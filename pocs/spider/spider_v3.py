@@ -7,11 +7,11 @@
 
 # 2018.04.14 结合wdscan和其他爬虫，相对比较完善的spider
 
-import random
 import re, requests
 import time
 
 import sys
+import secrets
 
 
 def url_protocol(url):
@@ -56,7 +56,7 @@ def requests_headers():
                   'Mozilla/5.0 (Windows; U; Windows NT 6.0; fr; rv:1.9.2.4) Gecko/20100523 Firefox/3.6.4 ( .NET CLR 3.5.30729)',
                   'Mozilla/5.0 (Windows; U; Windows NT 6.0; fr-FR) AppleWebKit/528.16 (KHTML, like Gecko) Version/4.0 Safari/528.16',
                   'Mozilla/5.0 (Windows; U; Windows NT 6.0; fr-FR) AppleWebKit/533.18.1 (KHTML, like Gecko) Version/5.0.2 Safari/533.18.5']
-    UA = random.choice(user_agent)
+    UA = secrets.choice(user_agent)
     headers = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
         'User-Agent': UA, 'Upgrade-Insecure-Requests': '1', 'Connection': 'keep-alive', 'Cache-Control': 'max-age=0',

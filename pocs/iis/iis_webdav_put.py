@@ -1,7 +1,7 @@
-import random
 import requests
 import string
 import time
+import secrets
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:52.0) Gecko/20100101 Firefox/52.0',
@@ -9,7 +9,7 @@ headers = {
 
 
 def poc(url):
-    file_content = ''.join(random.sample(string.ascii_letters + string.digits, 8))
+    file_content = ''.join(secrets.SystemRandom().sample(string.ascii_letters + string.digits, 8))
     url1 = "%s/%s.txt" % (url, 'go0p')
 
     try:

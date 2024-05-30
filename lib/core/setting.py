@@ -9,12 +9,12 @@
 import os.path
 import difflib
 import requests
-import random
 import re
 from urllib.parse import urlparse
 from lib.core.conf import BANNER
 from lib.core.data import paths
 from thirdlib.colorama import Back, Fore, Style, init
+import secrets
 
 init(autoreset=True)
 
@@ -118,7 +118,7 @@ def url200or404Check(url):
     :return:degree of similarity < 0.85 return True
     """
     parse_result = urlparse(url)
-    random_num = ''.join(str(i) for i in random.sample(range(0, 9), 5))
+    random_num = ''.join(str(i) for i in secrets.SystemRandom().sample(range(0, 9), 5))
     url_404 = "%s://%s/this_is_404_page_%s" % (parse_result.scheme, parse_result.netloc, random_num)
     try:
         standard_text = requests.get(url_404).text

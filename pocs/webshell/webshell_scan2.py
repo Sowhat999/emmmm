@@ -10,12 +10,12 @@ import re
 import os.path
 import time
 import requests
-import random
 import base64
 import html
 from lib.core.data import paths
 from lib.scheduler.loader import loadfakeuseragent
 from plugin.extracts import getCharset
+import secrets
 
 Timeout = 35
 
@@ -52,7 +52,7 @@ def random_ua():
 
 def random_spider_ua():
     spider_ua = {
-        'User-Agent': random.choice(spider_ua_list)
+        'User-Agent': secrets.choice(spider_ua_list)
     }
     return spider_ua
 

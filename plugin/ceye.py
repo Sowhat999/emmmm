@@ -7,13 +7,13 @@
 # @Software: PyCharm
 
 import requests
-import random
 from string import ascii_lowercase
 from lib.api.config.config import ConfigFileParser
+import secrets
 
 token = ConfigFileParser().CEyeToken()
 type = ['dns', 'http']
-filter = ''.join([random.choice(ascii_lowercase) for _ in range(10)])
+filter = ''.join([secrets.choice(ascii_lowercase) for _ in range(10)])
 print(filter)
 a = 'http://api.ceye.io/v1/records?token={token}&type={type}&filter={filter}'.format(token=token, type=type[1],
                                                                                      filter='name')

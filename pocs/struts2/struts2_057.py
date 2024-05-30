@@ -7,9 +7,9 @@
 # @Software: PyCharm
 
 import requests
-import random
 from urllib.parse import urlparse
 from plugin.urlparser import iterate_path, get_domain
+import secrets
 
 
 def poc(url, **kwargs):
@@ -23,8 +23,8 @@ def poc(url, **kwargs):
     headers = {
         "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:52.0) Gecko/20100101 Firefox/52.0'
     }
-    ran_a = random.randint(10000000, 20000000)
-    ran_b = random.randint(1000000, 2000000)
+    ran_a = secrets.SystemRandom().randint(10000000, 20000000)
+    ran_b = secrets.SystemRandom().randint(1000000, 2000000)
     ran_check = ran_a - ran_b
     parser = urlparse(url)
     if parser.path:

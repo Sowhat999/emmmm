@@ -1,10 +1,10 @@
 import requests
-import random
+import secrets
 
 
 def poc(url):
     timeout = 5
-    random_num = ''.join(str(i) for i in random.sample(range(0, 9), 5))
+    random_num = ''.join(str(i) for i in secrets.SystemRandom().sample(range(0, 9), 5))
     check_key = 'string(5) "%s"' % random_num
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:52.0) Gecko/20100101 Firefox/52.0'

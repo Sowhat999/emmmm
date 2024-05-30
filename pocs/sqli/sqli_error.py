@@ -7,7 +7,7 @@ import urllib.parse
 from urllib import parse as urlencode
 import re
 import requests
-import random
+import secrets
 
 
 class spiderMain(object):
@@ -117,7 +117,7 @@ def Error_sqli(url, html):
 def Error_xss(url):
     proxies = {'http': '127.0.0.1:9999'}
     header = dict()
-    ran_a = random.randint(0, 200000)
+    ran_a = secrets.SystemRandom().randint(0, 200000)
     payloadList = ['"><script>prompt(%d)</script>' % ran_a,
                    '"><img src=x onerror=prompt(%d)>' % ran_a,
                    '"><svg/onload=prompt(%d)>' % ran_a

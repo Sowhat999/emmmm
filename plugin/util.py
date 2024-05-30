@@ -3,13 +3,13 @@
 # project = https://github.com/Xyntax/POC-T
 # author = i@cdxy.me
 
-import random
 import hashlib
 import requests
 import socket
 import re
 from string import ascii_lowercase, digits
 from urllib.parse import urlparse
+import secrets
 
 
 def randomString(length=8):
@@ -19,7 +19,7 @@ def randomString(length=8):
     :param length:生成字符串长度
     :return 字母串
     """
-    return ''.join([random.choice(ascii_lowercase) for _ in range(length)])
+    return ''.join([secrets.choice(ascii_lowercase) for _ in range(length)])
 
 
 def randomDigits(length=8):
@@ -29,7 +29,7 @@ def randomDigits(length=8):
     :param length:生成字符串长度
     :return 数字串
     """
-    return ''.join([random.choice(digits) for _ in range(length)])
+    return ''.join([secrets.choice(digits) for _ in range(length)])
 
 
 def randomMD5(length=10, hex=True):
