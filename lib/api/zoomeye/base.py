@@ -10,6 +10,7 @@ import json
 from lib.core.data import paths
 from lib.core.setting import outputscreen
 from lib.api.config.config import ConfigFileParser
+from security import safe_requests
 
 
 class ZoomEye(object):
@@ -42,7 +43,6 @@ class ZoomEye(object):
         msg = 'Please input your ZoomEye Email and Password below.'
         outputscreen.info(msg)
         try:
-            from lib.core.data import conf, cmdLineOptions
             self.username = input('[!] ZoomEye Username(Email): ').strip()
             self.password = getpass.getpass(prompt='[!] ZoomEye Password: ').strip()
             # self.username = input('[!] ZoomEye Password: ').strip()
@@ -95,7 +95,7 @@ class ZoomEye(object):
         zoomeye_api = self.zoomeye_dork_api.format(resource)
         headers = {'Authorization': 'JWT %s' % self.token}
         params = {'query': dork, 'page': page + 1, 'facets': facets}
-        resp = requests.get(zoomeye_api, params=params, headers=headers)
+        resp = safe_requests.get(zoomeye_api, params=params, headers=headers)
 
         if resp and resp.status_code == 200 and 'matches' in resp.json():
             matches = resp.json().get('matches')
@@ -125,7 +125,7 @@ class ZoomEye(object):
         data = None
         zoomeye_api = "https://api.zoomeye.org/resources-info"
         headers = {'Authorization': 'JWT %s' % self.token}
-        resp = requests.get(zoomeye_api, headers=headers)
+        resp = safe_requests.get(zoomeye_api, headers=headers)
         if resp and resp.status_code == 200 and 'plan' in resp.json():
             data = resp.json()
 

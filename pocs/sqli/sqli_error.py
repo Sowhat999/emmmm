@@ -6,8 +6,8 @@ from bs4 import BeautifulSoup
 import urllib.parse
 from urllib import parse as urlencode
 import re
-import requests
 import random
+from security import safe_requests
 
 
 class spiderMain(object):
@@ -52,7 +52,7 @@ class spiderMain(object):
         header["Referer"] = "http://www.qq.com"
         new_urls = set()
         try:
-            r = requests.get(self.link, headers=header, timeout=5)
+            r = safe_requests.get(self.link, headers=header, timeout=5)
             if r.status_code == 200:
                 soup = BeautifulSoup(r.text, 'html.parser')
 
@@ -103,7 +103,7 @@ def Error_sqli(url, html):
             header[
                 "User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36<sCRiPt>/SrC=//60.wf/4PrhD>"
             header["Referer"] = "http://www.qq.com"
-            html2 = requests.get(url_1, headers=header, timeout=5).text
+            html2 = safe_requests.get(url_1, headers=header, timeout=5).text
             for sql_regex, dbms_type in Get_sql_errors():
                 match1 = sql_regex.search(html)
                 match2 = sql_regex.search(html2)
@@ -150,7 +150,7 @@ def Error_xss(url):
 
             try:
 
-                html = requests.get(new_url, headers=header, allow_redirects=False, ).text
+                html = safe_requests.get(new_url, headers=header, allow_redirects=False, ).text
 
                 if payload in html:
                     log = "可能存在XSS %s key:%s payload:%s" % (new_url, k, v + payload)
@@ -268,7 +268,7 @@ def check(urls):
             "User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36<sCRiPt/SrC=//60.wf/4PrhD>"
         header["Referer"] = "http://www.qq.com"
         try:
-            html = requests.get(url, headers=header, timeout=5).text
+            html = safe_requests.get(url, headers=header, timeout=5).text
             s1 = Error_sqli(url, html)
             if s1:
                 c.append(s1)

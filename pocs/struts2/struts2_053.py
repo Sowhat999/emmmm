@@ -1,6 +1,6 @@
 import warnings
-import requests
 import random
+from security import safe_requests
 
 warnings.filterwarnings("ignore")
 
@@ -33,7 +33,7 @@ def poc(url, **kwargs):
     try:
         for param in params:
             vulnurl = url + "?" + param + "=" + ran_number
-            req = requests.get(vulnurl, headers=headers, timeout=timeout, verify=False, )
+            req = safe_requests.get(vulnurl, headers=headers, timeout=timeout, verify=False, )
             if str(ran_check) in req.text:
                 result = "目标存在 Struts2-053, check url: %s" % url + '  ' + 'poc:' + param + "=" + ran_number
                 return result

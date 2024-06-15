@@ -1,4 +1,4 @@
-import requests
+from security import safe_requests
 
 """
     1.只有前六位字符直接显示，后续字符用~1指代。其中数字1还可以递增，如果存在多个文件名类似的文件（名称前6位必须相同，且后缀名前3位必须相同）；
@@ -24,9 +24,9 @@ def poc(url):
     url1_300 = "%s/a~1.*" % url
     # print(url1_400)
     try:
-        req_400 = requests.get(url1_400, headers=headers, timeout=5)
+        req_400 = safe_requests.get(url1_400, headers=headers, timeout=5)
         # print('400', req_400.status_code)
-        req_404 = requests.get(url1_404, headers=headers, timeout=5)
+        req_404 = safe_requests.get(url1_404, headers=headers, timeout=5)
         # req_300 = requests.get(url1_300, headers=headers, timeout=5)
         # print(req_300.status_code)
         # print('404', req_404.status_code)

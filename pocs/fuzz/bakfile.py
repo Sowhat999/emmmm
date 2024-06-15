@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import requests
 from urllib.parse import urlparse
+from security import safe_requests
 
 
 def poc(url):
@@ -74,7 +74,7 @@ flashfxp.tar.gz
             header = dict()
             header[
                 "User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
-            r = requests.get(loads, headers=header, timeout=5)
+            r = safe_requests.get(loads, headers=header, timeout=5)
 
             if r.status_code == 200 and "Content-Type" in r.headers and "application" in r.headers["Content-Type"]:
                 warning_list.append("-BAKFILE- " + loads)

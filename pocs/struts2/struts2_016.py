@@ -1,5 +1,6 @@
 import warnings
 import requests
+from security import safe_requests
 
 warnings.filterwarnings("ignore")
 
@@ -25,7 +26,7 @@ def poc(url, **kwargs):
     }
     try:
         for test in poc_goop:
-            req_get = requests.get(url + '?' + test, headers=headers, timeout=timeout, verify=False,
+            req_get = safe_requests.get(url + '?' + test, headers=headers, timeout=timeout, verify=False,
                                    allow_redirects=False)
             req_post = requests.post(url, data=test, headers=headers, timeout=timeout, verify=False,
                                      allow_redirects=False,)

@@ -1,5 +1,5 @@
-import requests
 import random
+from security import safe_requests
 
 
 def poc(url):
@@ -21,7 +21,7 @@ def poc(url):
     for check in poc_list:
         try:
             exp = url + check
-            req = requests.get(exp, headers=headers, timeout=timeout, allow_redirects=False)
+            req = safe_requests.get(exp, headers=headers, timeout=timeout, allow_redirects=False)
             if check_key in req.text:
                 result = "目标存在 ThinkPHP 5.0.*/5.1.* RCE, check url: %s" % exp
                 return result

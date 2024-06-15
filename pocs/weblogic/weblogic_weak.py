@@ -1,5 +1,6 @@
 # https://github.com/rabbitmask/WeblogicR
 import requests
+from security import safe_requests
 
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:52.0) Gecko/20100101 Firefox/52.0'}
 pwddict = ['WebLogic', 'weblogic', 'Oracle@123', 'oracle@123', 'password', 'system', 'Administrator', 'admin',
@@ -13,7 +14,7 @@ def poc(url):
 
     furl = url + '/console/login/LoginForm.jsp'
     try:
-        freq = requests.get(furl, headers=headers, timeout=5, allow_redirects=False)
+        freq = safe_requests.get(furl, headers=headers, timeout=5, allow_redirects=False)
         if freq.status_code == 200:
             for user in pwddict:
                 for pwd in pwddict:

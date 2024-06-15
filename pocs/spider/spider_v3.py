@@ -8,10 +8,11 @@
 # 2018.04.14 结合wdscan和其他爬虫，相对比较完善的spider
 
 import random
-import re, requests
+import re
 import time
 
 import sys
+from security import safe_requests
 
 
 def url_protocol(url):
@@ -122,7 +123,7 @@ class Spider():
         '''
         try:
             headers = requests_headers()
-            content = requests.get(url, timeout=5, headers=headers, verify=False).text.encode('utf-8')
+            content = safe_requests.get(url, timeout=5, headers=headers, verify=False).text.encode('utf-8')
             links = []
             tags = ['a', 'A', 'link', 'script', 'area', 'iframe', 'form']  # img
             tos = ['href', 'src', 'action']
@@ -156,7 +157,7 @@ class Spider():
             # pageSource=urllib2.urlopen(url).read()
             headers = requests_headers()
             time.sleep(0.5)
-            pageSource = requests.get(url, timeout=5, headers=headers).text.encode('utf-8')
+            pageSource = safe_requests.get(url, timeout=5, headers=headers).text.encode('utf-8')
             pageLinks = re.findall(r'(?<=href=\").*?(?=\")|(?<=href=\').*?(?=\')', pageSource)
             # print pageLinks
         except:

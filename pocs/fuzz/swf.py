@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # author = w8ay
-import requests
 import hashlib
+from security import safe_requests
 
 def poc(url):
     if '://' not in url:
@@ -37,7 +37,7 @@ def poc(url):
         try:
             header = dict()
             header["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
-            r = requests.get(payload1, headers=header, timeout=5)
+            r = safe_requests.get(payload1, headers=header, timeout=5)
             if r.status_code == 200:
                 md5_ = hashlib.md5()
                 md5_.update(r.content)

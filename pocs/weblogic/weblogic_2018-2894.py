@@ -1,5 +1,5 @@
-import requests
 from lib.core.setting import url200or404Check
+from security import safe_requests
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:52.0) Gecko/20100101 Firefox/52.0',
@@ -15,7 +15,7 @@ def poc(url):
         result = "目标Weblogic可能存在任意文件上传漏洞,CVE-2018-2894 : %s" % url1
         timeout = 5
         try:
-            req = requests.get(url1, headers=headers, timeout=timeout, )
+            req = safe_requests.get(url1, headers=headers, timeout=timeout, )
             if (req.status_code == 200 and url200or404Check(url1)) and (
                     'label_setting_menu_item_general'.lower() in str(req.text).lower()):
                 return result

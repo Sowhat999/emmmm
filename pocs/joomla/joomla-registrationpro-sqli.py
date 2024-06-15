@@ -14,10 +14,9 @@ Usage
   python POC-T.py -s joomla-registrationpro-sqli -aG "inurl:index.php?option=com_registrationpro"
 
 """
-
-import requests
 from plugin.urlparser import iterate_path
 from plugin.util import randomMD5
+from security import safe_requests
 
 
 def poc(url):
@@ -30,7 +29,7 @@ def poc(url):
             continue
         target_url = url.rstrip('/') + payload
         try:
-            r = requests.get(target_url, timeout=10)
+            r = safe_requests.get(target_url, timeout=10)
             if cipher in r.content:
                 return each
         except:

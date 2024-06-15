@@ -6,10 +6,10 @@
 # @File    : ceye.py
 # @Software: PyCharm
 
-import requests
 import random
 from string import ascii_lowercase
 from lib.api.config.config import ConfigFileParser
+from security import safe_requests
 
 token = ConfigFileParser().CEyeToken()
 type = ['dns', 'http']
@@ -18,7 +18,7 @@ print(filter)
 a = 'http://api.ceye.io/v1/records?token={token}&type={type}&filter={filter}'.format(token=token, type=type[1],
                                                                                      filter='name')
 print(a)
-req = requests.get(a, timeout=15)
+req = safe_requests.get(a, timeout=15)
 print(req.text)
 
 

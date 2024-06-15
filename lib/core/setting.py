@@ -8,13 +8,13 @@
 
 import os.path
 import difflib
-import requests
 import random
 import re
 from urllib.parse import urlparse
 from lib.core.conf import BANNER
 from lib.core.data import paths
-from thirdlib.colorama import Back, Fore, Style, init
+from thirdlib.colorama import Fore, Style, init
+from security import safe_requests
 
 init(autoreset=True)
 
@@ -106,7 +106,7 @@ def getTitle(input):
             content = input
         else:
             url = 'http://' + input if '://' not in input else input
-            content = requests.get(url, timeout=3).content
+            content = safe_requests.get(url, timeout=3).content
         return re.findall(b'<title>([\s\S]*)</title>', content)[0].strip()
     except Exception:
         return ''
@@ -121,11 +121,11 @@ def url200or404Check(url):
     random_num = ''.join(str(i) for i in random.sample(range(0, 9), 5))
     url_404 = "%s://%s/this_is_404_page_%s" % (parse_result.scheme, parse_result.netloc, random_num)
     try:
-        standard_text = requests.get(url_404).text
+        standard_text = safe_requests.get(url_404).text
     except:
         pass
     try:
-        text = requests.get(url).text
+        text = safe_requests.get(url).text
     except:
         pass
     degree_of_similarity = difflib.SequenceMatcher(None, standard_text, text).quick_ratio()

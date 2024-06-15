@@ -5,7 +5,7 @@
 
 
 import re
-import requests
+from security import safe_requests
 
 
 def getIP(text, remove_duplicate=True, remove_private=False):
@@ -63,7 +63,7 @@ def getTitle(input):
             content = input
         else:
             url = 'http://' + input if '://' not in input else input
-            content = requests.get(url, timeout=3).content
+            content = safe_requests.get(url, timeout=3).content
         return re.findall('<title>([\s\S]*)</title>', content)[0].strip()
     except Exception:
         return ''
@@ -80,7 +80,7 @@ def getCharset(input):
             text = input
         else:
             url = 'http://' + input if '://' not in input else input
-            text = requests.get(url, timeout=3).text
+            text = safe_requests.get(url, timeout=3).text
         charset = None
         m = re.compile('''<meta .*(http-equiv=["']?Content-Type["']?.*)?charset=["']?([a-zA-Z0-9_-]+)["'/]?''',
                        re.I).search(text)

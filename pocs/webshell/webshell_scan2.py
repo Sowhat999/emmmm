@@ -16,6 +16,7 @@ import html
 from lib.core.data import paths
 from lib.scheduler.loader import loadfakeuseragent
 from plugin.extracts import getCharset
+from security import safe_requests
 
 Timeout = 35
 
@@ -187,13 +188,13 @@ def check_other(url, charset, title_encode_list):
 
 
 def meta_redirect_title(url, meta_redirect_url, charset):
-    redirect_req = requests.get(meta_redirect_url, timeout=6, headers=random_spider_ua())
+    redirect_req = safe_requests.get(meta_redirect_url, timeout=6, headers=random_spider_ua())
     title_start = re.findall(b'<title>([\s\S]*?)</title>', redirect_req.content, re.I)
     return check_other(url, charset, title_start)
 
 
 def js_redirect_title(url, js_redirect_url, charset):
-    js_req = requests.get(js_redirect_url, timeout=6, headers=random_spider_ua())
+    js_req = safe_requests.get(js_redirect_url, timeout=6, headers=random_spider_ua())
     title_start = re.findall(b'<title>([\s\S]*?)</title>', js_req.content, re.I)
     return check_other(url, charset, title_start)
 
@@ -201,7 +202,7 @@ def js_redirect_title(url, js_redirect_url, charset):
 def poc(url, **kwargs):
     result_list = list()
     try:
-        req = requests.get(url, headers=random_spider_ua(), timeout=Timeout)
+        req = safe_requests.get(url, headers=random_spider_ua(), timeout=Timeout)
         sub = re.findall(r'(<input.*?>)', req.text, re.I)
         title_first = re.findall(b'<title.*?>([\s\S]*?)</title>', req.content, re.I)
         meta_redirect = re.search(

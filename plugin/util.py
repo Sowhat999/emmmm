@@ -5,11 +5,11 @@
 
 import random
 import hashlib
-import requests
 import socket
 import re
 from string import ascii_lowercase, digits
 from urllib.parse import urlparse
+from security import safe_requests
 
 
 def randomString(length=8):
@@ -57,7 +57,7 @@ def redirectURL(url, timeout=3):
     """
     try:
         url = url if '://' in url else 'http://' + url
-        r = requests.get(url, allow_redirects=False, timeout=timeout)
+        r = safe_requests.get(url, allow_redirects=False, timeout=timeout)
         return r.headers.get('location') if r.status_code == 302 else url
     except Exception:
         return url
@@ -104,7 +104,7 @@ def IP2domain(base, timeout=3):
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0'
         }
-        c = requests.get(url=q, headers=headers, timeout=timeout).text
+        c = safe_requests.get(url=q, headers=headers, timeout=timeout).text
         print(c)
         p = re.compile(r'<cite>(.*?)</cite>')
         l = re.findall(p, c)

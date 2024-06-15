@@ -16,6 +16,7 @@ Usage
 import requests
 from plugin.urlparser import iterate_path, get_domain
 from lib.scheduler.loader import loadfakeuseragent
+from security import safe_requests
 
 CHECK_WAF = True
 
@@ -51,7 +52,7 @@ def get_entry(url):
     for each in iterate_path(url):
         target = each.rstrip('/') + entry
         try:
-            r = requests.get(target, timeout=10)
+            r = safe_requests.get(target, timeout=10)
         except:
             continue
         if r.status_code == 200 and len(r.content) < 10:
@@ -63,7 +64,7 @@ def has_waf(target):
     # Check if target has a WAF/IDS
     check_waf_payload = '?p=-1 OR 1=1 UNION ALL SELECT 1,2,3,table_name FROM information_schema.tables WHERE 2>1-- ../../../etc/passwd'
     try:
-        r_waf = requests.get(target + check_waf_payload, timeout=3)
+        r_waf = safe_requests.get(target + check_waf_payload, timeout=3)
     except:
         return False
     if len(r_waf.text) > 10 or r_waf.status_code != 200:
